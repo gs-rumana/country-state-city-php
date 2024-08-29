@@ -1,0 +1,17 @@
+{
+    "name": "gs-rumana/country-state-city",
+    "description": "Add Countries, States and Cities more easily.",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Gursahb\\CountryStateCity\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "gs-rumana",
+            "email": "gursahb7@gmail.com"
+        }
+    ],
+    "require": {}
+}
