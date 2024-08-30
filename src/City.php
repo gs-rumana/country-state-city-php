@@ -2,8 +2,16 @@
 
 namespace CountryStateCity;
 
+/**
+ * Class City
+ * @package CountryStateCity
+ */
 class City
 {
+    /**
+     * Get all cities
+     * @return array
+     */
     public static function getAll()
     {
         $jsonFile = file_get_contents(__DIR__ . '/data/cities.json');
@@ -11,6 +19,11 @@ class City
         return $cities;
     }
 
+    /**
+     * Get city by id
+     * @param int $id
+     * @return array
+     */
     public static function getOne($id)
     {
         $cities = self::getAll();
@@ -18,6 +31,11 @@ class City
         return $cities[$idToIndex];
     }
 
+    /**
+     * Get cities by state
+     * @param string $stateCode
+     * @return array
+     */
     public static function getCitiesByState($stateCode)
     {
         $jsonFile = file_get_contents(__DIR__ . '/data/states+cities.json');
@@ -26,6 +44,11 @@ class City
         return $citiesByState;
     }
 
+    /**
+     * Get cities by country
+     * @param string $countryCode
+     * @return array
+     */
     public static function getCitiesByCountry($countryCode)
     {
         $jsonFile = file_get_contents(__DIR__ . '/data/countries+cities.json');
