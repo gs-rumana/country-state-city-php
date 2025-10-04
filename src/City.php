@@ -2,7 +2,7 @@
 
 namespace CountryStateCity;
 
-use JsonMachine\JsonMachine;
+use JsonMachine\Items;
 
 /**
  * Class City
@@ -43,7 +43,7 @@ class City
         $path = __DIR__ . '/data/states+cities.json';
 
         // Stream the outer JSON array (list of states)
-        $jsonStream = JsonMachine::fromFile($path);
+        $jsonStream = Items::fromFile($path);
 
         foreach ($jsonStream as $state) {
             if (isset($state['state_code']) && $state['state_code'] === $stateCode) {
@@ -64,7 +64,7 @@ class City
     public static function getCitiesByCountry($countryCode)
     {
         $path = __DIR__ . '/data/countries+cities.json';
-        $jsonStream = JsonMachine::fromFile($path);
+        $jsonStream = Items::fromFile($path);
 
         foreach ($jsonStream as $country) {
             if (isset($country['iso2']) && $country['iso2'] === $countryCode) {
