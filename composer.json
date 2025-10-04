@@ -14,7 +14,8 @@
         }
     ],
     "require": {
-        "php": ">=7.2"
+        "php": ">=7.2",
+        "halaxa/json-machine": "^1.2"
     },
     "license": "MIT"
 }

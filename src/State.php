@@ -40,7 +40,12 @@ class State
     {
         $jsonFile = file_get_contents(__DIR__ . '/data/countries+states.json');
         $countries = json_decode($jsonFile, true);
-        $statesByCountry = array_search($countryCode, array_column($countries, 'iso2'))['states'];
-        return $statesByCountry;
+        
+        $index = array_search($countryCode, array_column($countries, 'iso2'));
+        if ($index === false) {
+            return null; // country not found
+        }
+        
+        return $countries[$index]['states'];
     }
 }

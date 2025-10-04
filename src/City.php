@@ -2,6 +2,8 @@
 
 namespace CountryStateCity;
 
+use JsonMachine\JsonMachine;
+
 /**
  * Class City
  * @package CountryStateCity
@@ -38,10 +40,20 @@ class City
      */
     public static function getCitiesByState($stateCode)
     {
-        $jsonFile = file_get_contents(__DIR__ . '/data/states+cities.json');
-        $states = json_decode($jsonFile, true);
-        $citiesByState = array_search($stateCode, array_column($states, 'state_code'))['cities'];
-        return $citiesByState;
+        $path = __DIR__ . '/data/states+cities.json';
+
+        // Stream the outer JSON array (list of states)
+        $jsonStream = JsonMachine::fromFile($path);
+
+        foreach ($jsonStream as $state) {
+            if (isset($state['state_code']) && $state['state_code'] === $stateCode) {
+                // Return immediately once we find the matching state
+                return $state['cities'] ?? [];
+            }
+        }
+
+        // If state not found
+        return [];
     }
 
     /**
@@ -51,9 +63,14 @@ class City
      */
     public static function getCitiesByCountry($countryCode)
     {
-        $jsonFile = file_get_contents(__DIR__ . '/data/countries+cities.json');
-        $countries = json_decode($jsonFile, true);
-        $citiesByCountry = array_search($countryCode, array_column($countries, 'iso2'))['cities'];
-        return $citiesByCountry;
+        $path = __DIR__ . '/data/countries+cities.json';
+        $jsonStream = JsonMachine::fromFile($path);
+
+        foreach ($jsonStream as $country) {
+            if (isset($country['iso2']) && $country['iso2'] === $countryCode) {
+                return $country['cities'] ?? [];
+            }
+        }
+        return [];
     }
 }
